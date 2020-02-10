@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DisplayLike from "../../components/DisplayLike";
 const FA = require("react-fontawesome");
 
 class Discover extends Component {
     state = {
-        randomDog: ""
+        randomDog: "",
+        count: 0
     }
 
     componentDidMount() {
@@ -13,6 +15,19 @@ class Discover extends Component {
 
     handleHate = event => {
         event.preventDefault();
+        this.getRandomDog();
+    }
+
+    handleLike = event => {
+        event.preventDefault();
+        const random = Math.floor(Math.random() * 5) + 1;
+        if (random == 5) {
+            let newCount = this.state.count + 1;
+            this.setState({
+                count: newCount
+            })
+            console.log(this.state.count);
+        }
         this.getRandomDog();
     }
 
@@ -45,6 +60,9 @@ class Discover extends Component {
                         </div>
                     </div>
                 </div>
+                <DisplayLike 
+                    count = {this.state.count}
+                />
                 <div className="col-md-2"></div>
             </div>
         )
